@@ -30,16 +30,14 @@ jobs:
         run: npm run build
       - name: Publish JS filesname
         id: publish
-        run: FILE=$(find dist/assets/*.js -type f -exec basename {} \;)
+        run: |
+          FILE=$(find dist/assets/*.js -type f -exec basename {} \;)
           echo "script-file=$FILE" >> $GITHUB_OUTPUT
       - name: Upload a Build Artifact
         uses: actions/upload-artifact@v4
         with:
           name: dist-files
           path: dist
-          # path: |
-          #   dist  
-          #   package.json
 
   deploy:
     needs: build
